@@ -1,0 +1,195 @@
+;------------------
+;POLYBAR2
+;original by github.com/AnubisZ9
+;------------------
+
+;---------------------------------------
+;		COLORS
+;---------------------------------------
+
+[colors]
+black = #111419
+white = #D8DEE9
+red = #BF616A
+red1 = #BF3B48
+green = #94AD7D
+green1 = #70AD37
+blue = #5E81AC
+blue1 = #3C6EAC
+cyan = #7AACBA
+cyan1 = #56A4BA
+violet = #B48EAD
+violet1 = #B46AA6
+orange = #D08770
+orange1 = #D06847
+yellow = #CFB074
+yellow1 = #CF9B36
+focus = #8C8C8C
+focus1 = #757575
+unfocus = #1A2328
+unfocus1 = #101010
+
+;---------------------------------------
+;		GLOBAL
+;---------------------------------------
+
+[bar/blues]
+width = 100%
+height = 24
+bottom = false
+border-size = 0
+background = ${colors.black}
+foreground = ${colors.white}
+fixed-center = true
+line-size = 4
+line-color = #f00
+padding-left = 0
+padding-right = 0
+module-margin-left = 0
+module-margin-right = 1
+
+;---------------------------------------
+;		FONTS
+;---------------------------------------
+
+font-0 = TerminessTTF Nerd Font:weight=bold:size=10;2
+
+;---------------------------------------
+;	     MODULES LAYOUT
+;---------------------------------------
+
+modules-left = i3 date
+modules-right = temperature cpu memory
+modules-center = xwindow
+
+;---------------------------------------
+;	     MEMORY
+;---------------------------------------
+
+[module/memory]
+type = internal/memory
+; Seconds to sleep between updates
+; Default: 1
+interval = 3
+format = <label>
+label = "  %gb_used% " 
+format-foreground = ${colors.black}
+format-background = ${colors.yellow}
+format-underline = ${colors.yellow1}
+
+;---------------------------------------
+;	     CPU
+;---------------------------------------
+
+[module/cpu]
+type = internal/cpu 
+interval = 2
+format = <label>
+label = "﬙ %percentage:2%%"
+format-foreground = ${colors.black}
+format-background = ${colors.orange}
+format-padding = 1
+format-underline = ${colors.orange1}
+
+;---------------------------------------
+;	   TEMPERATURE
+;---------------------------------------
+
+[module/temperature]
+type = internal/temperature
+interval = 2
+format = <label>
+label = " %temperature-c%"
+format-foreground = ${colors.black}
+format-background = ${colors.red}
+format-padding = 1
+format-underline = ${colors.red1}
+
+;---------------------------------------
+;	     MPD
+;---------------------------------------
+
+[module/mpd]
+type = internal/mpd
+host = 127.0.0.1
+port = 6600
+format-online = <toggle> <label-song>
+;alt icons = 
+format-online-background = ${colors.blue}
+format-online-foreground = ${colors.black}
+format-online-padding = 1
+icon-play = 
+;icon-prev = 
+;icon-next = 
+icon-pause = 
+label-song =  "%{A1:mpc next && mpdfy:}%title:0:40:...%%{A}"
+label-song-ellipsis = true
+;bar-progress-width = 13
+;bar-progress-indicator = ⊙
+;bar-progress-fill = ━
+;bar-progress-empty = ─
+label-offline = mpd is offline
+format-online-underline = ${colors.blue1}
+format-offline-underline = ${colors.white}
+
+;---------------------------------------
+;	     WORKSPACE
+;---------------------------------------
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.focus}
+
+; focused = Active workspace on focused monitor
+label-focused = %index%
+label-focused-background = ${colors.blue}
+label-focused-foreground = ${colors.black}
+label-focused-underline= ${colors.blue1}
+label-focused-padding = 2
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %index%
+label-unfocused-padding = 2
+label-unfocused-background = ${colors.unfocus}
+label-unfocused-underline= ${colors.unfocus1}
+
+; visible = Active workspace on unfocused monitor
+label-visible = %index%
+label-visible-background = ${self.label-focused-background}
+label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %index%
+label-urgent-background = #5f5f5f
+label-urgent-padding = 2
+
+;---------------------------------------
+;	   XWINDOW
+;---------------------------------------
+
+[module/xwindow]
+type = internal/xwindow
+format-foreground = ${colors.white}
+format-background = ${colors.black}
+format-padding = 5
+label = %title:0:50:...%
+
+;---------------------------------------
+;	   DATE
+;---------------------------------------
+
+[module/date]
+type = internal/date
+interval = 1
+date = %a %d %b
+time = %I:%M %p
+label = "%{A1:gsimplecal:}  %date%   %time% %{A}"
+format-foreground = ${colors.black}
+format-background = ${colors.cyan}
+format-underline = ${colors.cyan1}
